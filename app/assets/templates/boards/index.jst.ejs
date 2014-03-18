@@ -1,0 +1,14 @@
+<h1>Boardizzles</h1>
+
+<ul>
+<% boards.each(function(board, index){ %>
+  <li>
+    <a href="#/boards/<%=board.id%>"><%=index + 1%>. <%= board.escape("title") %></a>
+    <button class="remove-board-btn" data-id="<%=board.id%>">Remove</button>
+  </li>
+<% }); %>
+</ul>
+
+<br>
+
+<a href="#/boards/new">New Board</a>

@@ -1,0 +1,13 @@
+<%=list.escape("title")%>
+<a class="pop" id="popover<%=list.id%>" data-toggle="popover">X</a>
+
+<div class="list-data"
+  data-rank="<%=list.get("rank")%>"
+  data-id="<%=list.id%>">
+</div>
+
+<ul class="sortable-list" id="list<%= list.id %>"></ul>
+
+<div id="card-form"></div>
+
+<button class="btn-sm add-card" id="add-card<%= list.id %>">Add a Card</button>
