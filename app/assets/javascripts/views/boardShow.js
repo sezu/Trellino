@@ -10,7 +10,7 @@ Trellino.Views.BoardShowView = Backbone.CompositeView.extend({
 
   events: {
     "click #add-list-btn": "addListForm",
-    "sortupdate .sortable-board": "updateBoard"
+    "sortstop .sortable-board": "updateBoard"
   },
 
   updateBoard: function(event, ui) {

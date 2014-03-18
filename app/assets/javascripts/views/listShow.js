@@ -13,7 +13,7 @@ Trellino.Views.ListShowView = Backbone.CompositeView.extend({
 
   events: {
     "click .add-card": "addCardForm",
-    "sortupdate .sortable-list": "updateList",
+    "sortstop .sortable-list": "updateList",
     "click .pop": "togglePopover",
     "click .destroy-list": "destroyList"
   },
@@ -35,7 +35,9 @@ Trellino.Views.ListShowView = Backbone.CompositeView.extend({
     var prevRank = ui.item.prev().find(".data").data("rank");
     var nextRank = ui.item.next().find(".data").data("rank");
 
-    if(!prevRank) {
+    if(!prevRank && !nextRank) {
+      newRank = 1;
+    } else if(!prevRank) {
       //less than first list item
       newRank = nextRank/2
     } else if(!nextRank) {
@@ -47,12 +49,19 @@ Trellino.Views.ListShowView = Backbone.CompositeView.extend({
 
     var cardId = ui.item.find(".data").data("id");
     var card = this.model.cards().get(cardId);
-    //var listId = this.model.id
-    //list_id: listId
 
-    card.save({ rank: newRank}, {
+    if(!card)
+    debugger;
+
+    var list_id = ui.item.parent().data("id")
+    var view = this
+
+    card.save({ rank: newRank, list_id: list_id }, {
       success: function() {
         listItem.find(".data").data("rank", newRank);
+
+        view.model.cards().remove(card, {silect: true});
+        view.model.collection.get(list_id).cards().add(card, {silent: true});
       }
     });
   },
